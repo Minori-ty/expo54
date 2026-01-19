@@ -60,7 +60,7 @@ jobs:
               with:
                   path: |
                       **/node_modules
-                  key: node-modules-${{ runner.os }}-node20-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}
+                  key: node-modules-${{ runner.os }}-node20-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}
                   restore-keys: |
                       node-modules-${{ runner.os }}-node20-
 
@@ -71,8 +71,8 @@ jobs:
 
             - name: 安装 npm 依赖
               run: |
-                  npm i -g eas-cli expo expo-doctor expo-cli typescript
-                  npm i
+                  npm i -g eas-cli expo expo-doctor expo-cli typescript pnpm
+                  pnpm i
 
             - name: 打包expo应用
               run: |
