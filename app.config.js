@@ -21,6 +21,7 @@ const config = {
                 monochromeImage: './assets/images/android-icon-monochrome.png',
             },
             edgeToEdgeEnabled: true,
+            package: 'com.minority.expo54',
             predictiveBackGestureEnabled: false,
             permissions: [
                 'ACCESS_NETWORK_STATE',
