@@ -1,14 +1,15 @@
 {
     "name": "expo54",
     "main": "expo-router/entry",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "scripts": {
         "start": "expo start",
         "reset-project": "node ./scripts/reset-project.js",
         "android": "expo start --android",
         "ios": "expo start --ios",
         "web": "expo start --web",
-        "lint": "expo lint"
+        "lint": "expo lint",
+        "build": "eas build --platform android --local"
     },
     "dependencies": {
         "@dr.pogodin/react-native-fs": "^2.36.2",
