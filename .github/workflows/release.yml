@@ -71,8 +71,8 @@ jobs:
 
             - name: 安装 npm 依赖
               run: |
-                  npm i -g eas-cli expo expo-doctor expo-cli typescript pnpm
-                  pnpm i
+                  npm i -g eas-cli expo expo-doctor expo-cli typescript
+                  npm i
 
             - name: 打包expo应用
               run: |
