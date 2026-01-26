@@ -1,5 +1,5 @@
-import * as Calendar from 'expo-calendar'
-import * as FileSystem from 'expo-file-system/legacy'
+import { getCalendarPermissionsAsync, requestCalendarPermissionsAsync } from 'expo-calendar'
+import { StorageAccessFramework } from 'expo-file-system/legacy'
 
 /**
  * 获取日历权限
@@ -7,12 +7,12 @@ import * as FileSystem from 'expo-file-system/legacy'
  */
 export async function getCalendarPermission() {
     try {
-        const settings = await Calendar.getCalendarPermissionsAsync()
+        const settings = await getCalendarPermissionsAsync()
         if (settings.granted) {
             return true
         }
 
-        const status = await Calendar.requestCalendarPermissionsAsync()
+        const status = await requestCalendarPermissionsAsync()
         return status.granted
     } catch (error) {
         alert('获取日历权限失败' + error)
@@ -26,7 +26,7 @@ export async function getCalendarPermission() {
  */
 export async function getFileExportsPermission() {
     try {
-        const settings = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
+        const settings = await StorageAccessFramework.requestDirectoryPermissionsAsync()
         if (settings.granted) {
             return settings.directoryUri
         }
