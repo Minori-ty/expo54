@@ -1,6 +1,5 @@
 import { animeTable } from '@/db/schema'
 import { getDocumentAsync } from 'expo-document-picker'
-// 保留你的 legacy 导入（无需修改），仅移除 RNFS 导入
 import {
     deleteAsync,
     documentDirectory,

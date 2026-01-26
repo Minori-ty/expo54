@@ -1,7 +1,14 @@
 import { EStatus } from '@/enums'
 import { getCalendarPermission } from '@/permissions'
 import dayjs from 'dayjs'
-import * as Calendar from 'expo-calendar'
+import {
+    AlarmMethod,
+    createEventAsync,
+    deleteEventAsync,
+    Frequency,
+    getCalendarsAsync,
+    getEventAsync,
+} from 'expo-calendar'
 import { getLastEpisodeTimestamp, getStatus, isCurrentWeekdayUpdateTimePassed } from './time'
 
 /**
@@ -15,7 +22,7 @@ export async function deleteCalendarEvent(eventId: string) {
     if (!granted) return false
 
     // 获得默认日历ID
-    const calendars = await Calendar.getCalendarsAsync()
+    const calendars = await getCalendarsAsync()
     const defaultCalendar = calendars.find(cal => cal.allowsModifications)
 
     if (!defaultCalendar) {
@@ -29,7 +36,7 @@ export async function deleteCalendarEvent(eventId: string) {
             console.log('该日历事件不存在，不执行删除操作')
             return false
         }
-        await Calendar.deleteEventAsync(eventId)
+        await deleteEventAsync(eventId)
         console.log('删除了=========================')
         console.log('删除日历成功')
         return true
@@ -61,7 +68,7 @@ export async function addCalendarEvent({
     if (!granted) return null
 
     // 获得默认日历ID
-    const calendars = await Calendar.getCalendarsAsync()
+    const calendars = await getCalendarsAsync()
     const defaultCalendar = calendars.find(cal => cal.allowsModifications)
 
     if (!defaultCalendar) {
@@ -78,7 +85,7 @@ export async function addCalendarEvent({
 
     if (status === EStatus.toBeUpdated) {
         try {
-            const eventId = await Calendar.createEventAsync(defaultCalendar.id, {
+            const eventId = await createEventAsync(defaultCalendar.id, {
                 title: `${name} 即将更新!`,
                 startDate: dayjs.unix(firstEpisodeTimestamp).toDate(),
                 endDate: dayjs.unix(firstEpisodeTimestamp).toDate(),
@@ -86,11 +93,11 @@ export async function addCalendarEvent({
                 alarms: [
                     {
                         relativeOffset: 0,
-                        method: Calendar.AlarmMethod.ALERT,
+                        method: AlarmMethod.ALERT,
                     }, // 准时通知
                 ],
                 recurrenceRule: {
-                    frequency: Calendar.Frequency.WEEKLY,
+                    frequency: Frequency.WEEKLY,
                     interval: 1,
                     occurrence: totalEpisode - currentEpisode,
                 },
@@ -127,7 +134,7 @@ export async function addCalendarEvent({
 
         // 解析输入的时间字符串
         try {
-            const eventId = await Calendar.createEventAsync(defaultCalendar.id, {
+            const eventId = await createEventAsync(defaultCalendar.id, {
                 title: `${name} 即将更新!`,
                 startDate,
                 endDate,
@@ -135,11 +142,11 @@ export async function addCalendarEvent({
                 alarms: [
                     {
                         relativeOffset: 0,
-                        method: Calendar.AlarmMethod.ALERT,
+                        method: AlarmMethod.ALERT,
                     }, // 准时通知
                 ],
                 recurrenceRule: {
-                    frequency: Calendar.Frequency.WEEKLY,
+                    frequency: Frequency.WEEKLY,
                     interval: 1,
                     occurrence: totalEpisode - currentEpisode,
                 },
@@ -166,7 +173,7 @@ export async function getCalendarEventByEventId(eventId: string) {
     if (!granted) return null
 
     // 获得默认日历ID
-    const calendars = await Calendar.getCalendarsAsync()
+    const calendars = await getCalendarsAsync()
     const defaultCalendar = calendars.find(cal => cal.allowsModifications)
 
     if (!defaultCalendar) {
@@ -174,7 +181,7 @@ export async function getCalendarEventByEventId(eventId: string) {
         return false
     }
     try {
-        await Calendar.getEventAsync(eventId)
+        await getEventAsync(eventId)
 
         return true
     } catch {
