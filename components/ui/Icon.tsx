@@ -13,8 +13,8 @@ import {
     Settings,
     Settings2,
 } from 'lucide-react-native'
-import { cssInterop } from 'nativewind'
 import { memo, useMemo } from 'react'
+import { cssInterop } from 'react-native-css-interop'
 
 type IconName = keyof typeof iconMap
 type IconProps = { name: IconName; className?: string; size?: number }
