@@ -3,7 +3,7 @@ name: Local Android Debug APK Build
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-android:
