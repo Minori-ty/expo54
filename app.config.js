@@ -85,6 +85,7 @@ const config = {
                         targetSdkVersion: 35,
                         buildToolsVersion: '35.0.0',
                         ndkVersion: '27.1.12297006',
+                        buildArchs: ["armeabi-v7a"],
                     },
                     ios: {
                         deploymentTarget: '15.1',
